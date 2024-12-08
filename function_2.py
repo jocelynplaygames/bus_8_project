@@ -2,6 +2,7 @@
 
 import math
 
+'def define_weights(coord_pairs: list) -> list:'
 weights = []
 # Define the coordinates
 coord_pairs = [[40.712776, -74.005974],[34.052235, -118.243683], [41.878113, -87.629799], [29.760427, -95.369804]]
@@ -22,3 +23,4 @@ for i in range(0, len(coord_pairs) - 1, 2):
     # Append the distance to the list
     weights.append(round(weight, 2))
 print(weights)
+'return (weights)'
