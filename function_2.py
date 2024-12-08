@@ -2,24 +2,23 @@
 
 import math
 
+weights = []
 # Define the coordinates
-lat_lon_1 = [47.617756, -122.334014]  # Point 1 (latitude, longitude)
-lat_lon_2 = [47.618493, -122.334320]  # Point 2 (latitude, longitude)
+coord_pairs = [[40.712776, -74.005974],[34.052235, -118.243683], [41.878113, -87.629799], [29.760427, -95.369804]]
 
-# Convert latitude and longitude to radians
-lat_lon_1[0], lat_lon_1[1], lat_lon_2[0], lat_lon_2[1] = map(math.radians,
-                                                              [lat_lon_1[0], lat_lon_1[1],
-                                                               lat_lon_2[0], lat_lon_2[1]])
+radius_miles = 3958.8  # Radius of Earth in miles
 
-# Haversine formula
-dlat = lat_lon_2[0] - lat_lon_1[0]
-dlon = lat_lon_2[1] - lat_lon_1[1]
-a = math.sin(dlat / 2)**2 + math.cos(lat_lon_1[0]) * math.cos(lat_lon_2[0]) * math.sin(dlon / 2)**2
-c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-# Radius of Earth in miles
-radius_miles = 3958.8
-distance = radius_miles * c
-
-# Output the result
-print(f"Distance: {distance:.4f} miles")
+for i in range(0, len(coord_pairs) - 1, 2):
+    # Extract coordinates and convert to radians
+    lat1, lon1 = map(math.radians, coord_pairs[i])
+    lat2, lon2 = map(math.radians, coord_pairs[i + 1])
+    # Haversine formula
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = radius_miles * c
+    weight = distance/ 20
+    # Append the distance to the list
+    weights.append(round(weight, 2))
+print(weights)
